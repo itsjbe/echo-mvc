@@ -158,6 +158,7 @@ func (e *TemplateEngine) SetFileHandler(handle FileHandler) {
 func Render(ctx echo.Context, code int, name string, data interface{}) error {
 	if val := ctx.Get(templateEngineKey); val != nil {
 		if e, ok := val.(*TemplateEngine); ok {
+			ctx.Response().WriteHeader(code)
 			return e.Render(ctx.Response().Writer, name, data, ctx)
 		}
 	}
